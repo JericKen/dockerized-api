@@ -1,0 +1,30 @@
+services:
+  api:
+    build: ./api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+    environment:
+      PGHOST: postgres
+      PGPORT: 5432
+      PGDATABASE: myapp
+      PGUSER: postgres
+      PGPASSWORD: KenToji@2194
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:17
+    environment: 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: KenToji@2194
+      POSTGRES_DB: myapp
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
